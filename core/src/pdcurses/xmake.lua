@@ -23,3 +23,9 @@ target("pdcurses")
 
     -- unset warnings
     set_warnings("none")
+
+    -- msvc 2026 reports C4723 for slk.c during link-time code generation,
+    -- where the unset warnings do not apply and the warning fails the link
+    if is_plat("windows") and is_mode("release") then
+        set_optimize("fastest")
+    end
